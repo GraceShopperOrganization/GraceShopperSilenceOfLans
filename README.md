@@ -1,7 +1,8 @@
 # FS-App-Template
 
-Test hello test2 and hello tes#3,
-lets create a merge conflict
+
+conflict test
+
 
 ## Setup
 
