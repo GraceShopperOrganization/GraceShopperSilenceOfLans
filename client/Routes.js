@@ -6,36 +6,38 @@ import Home from "./components/Home";
 import { me } from "./store";
 
 import Products from "./components/Products";
+import Product from "./components/Product";
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-    componentDidMount() {
-        this.props.loadInitialData();
-    }
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
 
-    render() {
-        const { isLoggedIn } = this.props;
+  render() {
+    const { isLoggedIn } = this.props;
 
-        return (
-            <div>
-                {isLoggedIn ? (
-                    <Switch>
-                        <Route path="/home" component={Home} />
-                        <Redirect to="/home" />
-                    </Switch>
-                ) : (
-                    <Switch>
-                        <Route path="/" exact component={Login} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/products" component={Products} />
-                    </Switch>
-                )}
-            </div>
-        );
-    }
+    return (
+      <div>
+        {isLoggedIn ? (
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Redirect to="/home" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+             <Route path="/products" component={Products} />
+            <Route exact path="/products/:productId(\d+)" component={Product} />
+          </Switch>
+        )}
+      </div>
+    );
+  }
 }
 
 /**
