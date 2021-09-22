@@ -72,10 +72,10 @@ async function seed() {
     })
   );
 
-  console.log(`seeded ${users.length} users`);
-  console.log(`seeded ${users.length} users`);
 
-  console.log(`seeded successfully`);
+    console.log(`seeded ${users.length} users`);
+    console.log(`seeded successfully`);
+
 
   return {
     users: {
