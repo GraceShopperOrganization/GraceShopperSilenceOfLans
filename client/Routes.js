@@ -4,6 +4,7 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
+import Userlist from './components/Userlist';
 
 /**
  * COMPONENT
@@ -14,10 +15,22 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn,isAdmin} = this.props
 
     return (
       <div>
+        {/* {isAdmin ? (
+          <Switch>
+            <Route exact path="/users" component={Userlist} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/users">For Admins Only!</Route>
+          </Switch>
+        )} */}
+        <Switch>
+            <Route exact path="/users" component={Userlist} />
+          </Switch>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
@@ -42,7 +55,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.isAdmin,
   }
 }
 
