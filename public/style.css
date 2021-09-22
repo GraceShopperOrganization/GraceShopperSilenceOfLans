@@ -1,13 +1,24 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Rosario', sans-serif;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
+  color: white
 }
 
 label {
   display: block;
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  height: 75px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 25px;
 }
 
 nav a {
@@ -18,4 +29,24 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+h1 {
+  margin: 0;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  background-color: #09A599;
+  color: white;
+}
+
+.login-buttons {
+  margin-right: 25px;
+}
+
+.logo {
+  margin-left: 25px;
+  margin-right: 25px;
 }
