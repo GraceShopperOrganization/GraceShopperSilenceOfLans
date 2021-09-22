@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchUsers } from "../store/Userlist";
+import { fetchUsers } from "../store/userlist";
 import { connect } from "react-redux";
 
 class Userlist extends React.Component {
@@ -43,7 +43,7 @@ class Userlist extends React.Component {
 
 const mapState = (state) => {
   return {
-    users: state.userList,
+    users: state.Userlist,
   };
 };
 

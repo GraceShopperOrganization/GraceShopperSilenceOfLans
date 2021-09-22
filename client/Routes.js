@@ -9,6 +9,8 @@ import Userlist from './components/Userlist';
 /**
  * COMPONENT
  */
+
+
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -18,6 +20,7 @@ class Routes extends Component {
     const {isLoggedIn,isAdmin} = this.props
 
     return (
+      //TODO: redirects to home when i go to users as admin , commented logic below
       <div>
         {/* {isAdmin ? (
           <Switch>
@@ -28,11 +31,9 @@ class Routes extends Component {
             <Route exact path="/users">For Admins Only!</Route>
           </Switch>
         )} */}
-        <Switch>
-            <Route exact path="/users" component={Userlist} />
-          </Switch>
         {isLoggedIn ? (
           <Switch>
+            <Route exact path="/users" component={Userlist} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>
