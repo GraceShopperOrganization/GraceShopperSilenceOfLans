@@ -4,11 +4,12 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
+  <div id="navbar">
+    <img src='/Logo.png' className="logo"/>
+    <h1>GreenShopper</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div className="login-buttons">
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
@@ -16,14 +17,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </a>
         </div>
       ) : (
-        <div>
+        <div className="login-buttons">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/login">Login</Link>
         </div>
       )}
+      <img src='/CartIcon.png'/>
     </nav>
-    <hr />
   </div>
 )
 
