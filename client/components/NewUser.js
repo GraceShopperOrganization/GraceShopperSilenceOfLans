@@ -40,30 +40,30 @@ class NewUser extends Component {
     const { updateHandler, submitHandler } = this;
 
     return (
-      <div className="create-student-form">
+      <div className="create-user-form">
         <h2>Sign Up</h2>
         <form onSubmit={submitHandler}>
-          <div>
+          <div className="input-row">
             <label>First Name</label>
             <input name="firstName" onChange={updateHandler} value={firstName} />
           </div>
-          <div>
+          <div className="input-row">
             <label>Last Name</label>
             <input name="lastName" onChange={updateHandler} value={lastName} />
           </div>
-          <div>
+          <div className="input-row">
             <label>Username</label>
             <input name="username" onChange={updateHandler} value={username} />
           </div>
-          <div>
+          <div className="input-row">
             <label>Email</label>
             <input name="email" onChange={updateHandler} value={email} />
           </div>
-          <div>
+          <div className="input-row">
             <label>Password</label>
-            <input name="password" onChange={updateHandler} value={password} />
+            <input type="password" name="password" onChange={updateHandler} value={password} />
           </div>
-          <button type="submit">Submit</button>
+          <button className="signup-btn" type="submit">Create Account</button>
         </form>
       </div>
     )

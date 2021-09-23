@@ -9,7 +9,8 @@ a {
 }
 
 label {
-    display: block;
+    /* display: flex;
+     */
 }
 
 nav {
@@ -26,6 +27,13 @@ nav a {
     margin: 1em;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 400px;
+}
+
 form div {
     margin: 1em;
     display: inline-block;
@@ -33,6 +41,12 @@ form div {
 
 h1 {
     margin: 0;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  color: #09a599;
 }
 
 #navbar {
@@ -125,4 +139,34 @@ h1 {
 }
 .single-product--description {
     margin: 20px;
+}
+
+/* ------------------------------SIGNUP CONTAINER --------------------------------*/
+
+.create-user-form {
+  display: flex;
+  flex-direction: column;
+  color: #09a599;
+  justify-content: center;
+}
+
+.signup-btn {
+  background-color: #09a599;
+  border-radius: 5px;
+  border-color: #09a599;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  width: 200px;
+  margin-top: 25px;
+  align-self: center;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  border: 2px solid #09a599;
+  width: 250px;
 }
