@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { models: { User }} = require('../db')
 module.exports = router
 
+//GET /api/users
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -11,6 +12,15 @@ router.get('/', async (req, res, next) => {
       attributes: ["id", "firstName", "lastName", "address", "email"]
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// POST /api/users
+router.post('/', async (req, res, next) => {
+  try {
+    res.status(201).send(await User.create(req.body));
   } catch (err) {
     next(err)
   }
