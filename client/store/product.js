@@ -11,8 +11,12 @@ export const setProduct = (product) => ({
 
 //THUNK CREATORS
 export const fetchProduct = (productId) => async (dispatch) => {
-  const { data } = await axios.get(`/api/products/${productId}`);
-  dispatch(setProduct(data));
+  try {
+    const { data } = await axios.get(`/api/products/${productId}`);
+    dispatch(setProduct(data));
+  } catch (error) {
+    console.log("FETCH PRODUCT ERR:", error);
+  }
 };
 
 //INITIAL STATE
