@@ -11,6 +11,7 @@ export class Product extends React.Component {
     render() {
         const product = this.props.product;
 
+
         return (
             <div className="single-product--main-container">
                 <div className="single-product--left-side-img">
@@ -33,10 +34,41 @@ export class Product extends React.Component {
                     <div>
                         <button
                             className="single-product--addToCartBtn"
-                            onClick={async () => {
-                                await this.props.addToCart(product.id);
-                                await this.props.getProduct(productId);
-                            }}
+                            onClick={
+                    localStorage.getItem("token")
+                      ? async () => {
+                          await this.props.addToCartLogged(product.id);
+                        }
+                      : () => {
+                          let products = [];
+                          if (localStorage.getItem("products")) {
+                            products = JSON.parse(
+                              localStorage.getItem("products")
+                            );
+                          }
+
+                          let unique = true;
+
+                          for (let i = 0; i < products.length; i++) {
+                            if (products[i].productId === product.id) {
+                              products[i].quantity = products[i].quantity + 1;
+                              unique = false;
+                            }
+                          }
+
+                          if (unique === true) {
+                            products.push({
+                              productId: product.id,
+                              quantity: 1,
+                            });
+                          }
+
+                          localStorage.setItem(
+                            "products",
+                            JSON.stringify(products)
+                          );
+                        }
+                  }
                         >
                             Add to cart
                         </button>
@@ -45,6 +77,7 @@ export class Product extends React.Component {
             </div>
         );
     }
+
 }
 
 const mapState = (state) => {
@@ -54,8 +87,10 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
-    getProduct: (productId) => dispatch(fetchProduct(productId)),
-    addToCart: (productId) => dispatch(addToCart(productId)) //need to create cart component so we can work on adding to cart functionality
+
+  getProduct: (productId) => dispatch(fetchProduct(productId)),
+  addToCartLogged: (productId) => dispatch(addToCart(productId)), //need to create cart component so we can work on adding to cart functionality
+
 });
 
 export default connect(mapState, mapDispatch)(Product);

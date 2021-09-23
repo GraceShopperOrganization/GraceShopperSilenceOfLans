@@ -17,6 +17,7 @@ class Routes extends Component {
         this.props.loadInitialData();
     }
 
+
     render() {
         const { isLoggedIn, isAdmin } = this.props;
 
@@ -24,6 +25,7 @@ class Routes extends Component {
             //TODO: redirects to home when i go to users as admin , commented logic below
             <div>
                 {/* {isAdmin ? (
+
           <Switch>
             <Route exact path="/users" component={Userlist} />
           </Switch>
@@ -32,6 +34,7 @@ class Routes extends Component {
             <Route exact path="/users">For Admins Only!</Route>
           </Switch>
         )} */}
+
                 {isLoggedIn ? (
                     <Switch>
                         <Route exact path="/users" component={Userlist} />
@@ -54,6 +57,7 @@ class Routes extends Component {
             </div>
         );
     }
+
 }
 
 /**
@@ -61,20 +65,22 @@ class Routes extends Component {
  */
 
 const mapState = (state) => {
+
     return {
         // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
         // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
         isLoggedIn: !!state.auth.id,
         isAdmin: state.auth.isAdmin
     };
+
 };
 
 const mapDispatch = (dispatch) => {
-    return {
-        loadInitialData() {
-            dispatch(me());
-        }
-    };
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
