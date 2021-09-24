@@ -5,44 +5,69 @@ const {
     models: { User, Product }
 } = require("../server/db");
 
+const products = require("./productsSeed");
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 
-const products = [
+const users = [
     {
-        productName: "Chinese Elm",
-        description:
-            "Characterized by its leaf shape and trunk structure, the Chinese Elm Bonsai tree is a perfect addition of style and grace to any coffee table. Pruning the Chinese Elm Bonsai tree will continually produce fresh leaves to any shape you choose.",
-        imageUrl:
-            "https://www.easternleaf.com/v/vspfiles/photos/800510-03-2T.jpg?v-cache=1474386133",
-        price: 50,
-        inventory: 5,
-        category: "bonsai"
+        firstName: "Samer",
+        lastName: "Saleh",
+        username: "samersaleh",
+        address: "123",
+        password: "password123",
+        email: "samer@example.com",
+        isAdmin: true
     },
     {
-        productName: "Satsuki Azalea",
-        description:
-            "This flowering bonsai produces blooms during the spring and possibly during the fall with the proper care. It's blush (pink) blooms can add a refreshing touch to a room looking for natural color.",
-        imageUrl:
-            "https://www.easternleaf.com/v/vspfiles/photos/801460-03-2T.jpg?v-cache=1474457230",
-        price: 40,
-        inventory: 4,
-        category: "bonsai"
+
+        firstName: "James",
+        lastName: "Bond",
+        username: "jamesbond",
+        address: "007",
+        password: "password007",
+        email: "bond@example.com",
+        isAdmin: false
 
     }
  ];
+
+// const products = [
+//   {
+//     productName: "Chinese Elm",
+//     description:
+//       "Characterized by its leaf shape and trunk structure, the Chinese Elm Bonsai tree is a perfect addition of style and grace to any coffee table. Pruning the Chinese Elm Bonsai tree will continually produce fresh leaves to any shape you choose.",
+//     imageUrl:
+//       "https://www.easternleaf.com/v/vspfiles/photos/800510-03-2T.jpg?v-cache=1474386133",
+//     price: 50,
+//     inventory: 5,
+//     category: "bonsai",
+//   },
+//   {
+//     productName: "Satsuki Azalea",
+//     description:
+//       "This flowering bonsai produces blooms during the spring and possibly during the fall with the proper care. It's blush (pink) blooms can add a refreshing touch to a room looking for natural color.",
+//     imageUrl:
+//       "https://www.easternleaf.com/v/vspfiles/photos/801460-03-2T.jpg?v-cache=1474457230",
+//     price: 40,
+//     inventory: 4,
+//     category: "bonsai",
+//   },
+// ];
 
 async function seed() {
     await db.sync({ force: true }); // clears db and matches models to tables
     console.log("db synced!");
 
     // Creating Users
-    const users = await Promise.all([
-        User.create({ username: "cody", password: "123" }),
-        User.create({ username: "murphy", password: "123" })
-    ]);
+    await Promise.all(
+        users.map((user) => {
+            return User.create(user);
+        })
+    );
 
     // POPULATE PRODUCTS
     await Promise.all(
@@ -52,7 +77,7 @@ async function seed() {
     );
 
     console.log(`seeded ${users.length} users`);
-    console.log(`seeded ${users.length} users`);
+    console.log(`seeded ${products.length} products`);
 
     console.log(`seeded successfully`);
 
