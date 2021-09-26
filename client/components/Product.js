@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/product";
-import { addToCart } from "../store/orders";
+import {
+  getCartContent,
+  addNewProductToCart,
+  editCartQuantity,
+} from "../store/orders";
 
 export class Product extends React.Component {
   async componentDidMount() {
@@ -9,8 +13,16 @@ export class Product extends React.Component {
     await this.props.getProduct(productId);
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.props.auth.id !== prevProps.auth.id) {
+      await this.props.getCartContent(this.props.auth.id);
+    }
+  }
+
   render() {
     const product = this.props.product;
+    const cart = this.props.cart;
+    console.log(this.props.match.params.productId);
 
     return (
       <div className="single-product--main-container">
@@ -33,10 +45,23 @@ export class Product extends React.Component {
               onClick={
                 localStorage.getItem("token")
                   ? async () => {
-                      await this.props.addToCartLogged(
-                        this.props.auth.id,
-                        product.id
+                      let filtered = cart.filter(
+                        (item) =>
+                          item.productId == this.props.match.params.productId
                       );
+                      if (filtered.length === 0) {
+                        await this.props.addToCartNew(
+                          this.props.auth.id,
+                          this.props.match.params.productId
+                        );
+                      } else {
+                        let newQty = filtered[0].quantity + 1;
+                        await this.props.addToCartEx(
+                          this.props.auth.id,
+                          this.props.match.params.productId,
+                          newQty
+                        );
+                      }
                     }
                   : () => {
                       let products = [];
@@ -79,13 +104,21 @@ export class Product extends React.Component {
 const mapState = (state) => {
   return {
     product: state.product,
+    cart: state.cart,
+    auth: state.auth,
   };
 };
 
 const mapDispatch = (dispatch) => ({
+  getCartContent: (userId) => dispatch(getCartContent(userId)),
+
   getProduct: (productId) => dispatch(fetchProduct(productId)),
-  addToCartLogged: (userId, productId) =>
-    dispatch(addToCart(userId, productId)), //need to create cart component so we can work on adding to cart functionality
+
+  addToCartNew: (userId, productId) =>
+    dispatch(addNewProductToCart(userId, productId)),
+
+  addToCartEx: (userId, productId, quantity) =>
+    dispatch(editCartQuantity(userId, productId, quantity)),
 });
 
 export default connect(mapState, mapDispatch)(Product);

@@ -8,6 +8,7 @@ import Userlist from "./components/Userlist";
 import Products from "./components/Products";
 import Product from "./components/Product";
 import NewUser from "./components/NewUser";
+import Cart from "./components/Cart";
 
 /**
  * COMPONENT
@@ -41,6 +42,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route exact path="/products/:productId(\d+)" component={Product} />
             <Route exect path="/products" component={Products} />
+            <Route exect path="/cart" component={Cart} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -50,6 +52,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={NewUser} />
             <Route path="/" exact component={Login} />
+            <Route exect path="/cart" component={Cart} />
           </Switch>
         )}
       </div>

@@ -16,12 +16,24 @@ const Order = db.define("order", {
   },
 });
 
+Order.getOrderIdForCartDisplay = async (userIdFrontEnd) => {
+  const isCart = await Order.findAll({
+    where: { isPaid: false, userId: userIdFrontEnd },
+  });
+
+  if (isCart.length === 0) {
+    return null;
+  } else {
+    return isCart[0].id;
+  }
+};
+
 Order.getOrderIdForAddToCart = async (userIdFrontEnd) => {
   const isCart = await Order.findAll({
     where: { isPaid: false, userId: userIdFrontEnd },
   });
 
-  if (!isCart) {
+  if (isCart.length === 0) {
     const newCart = await Order.create({
       isPaid: false,
       orderAddress: "a",
@@ -30,7 +42,7 @@ Order.getOrderIdForAddToCart = async (userIdFrontEnd) => {
     });
     return newCart.id;
   } else {
-    return isCart.id;
+    return isCart[0].id;
   }
 };
 
