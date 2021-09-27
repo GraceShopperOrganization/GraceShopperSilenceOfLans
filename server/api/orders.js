@@ -3,8 +3,10 @@ const {
   models: { Order, Order_detail, Product },
 } = require("../db");
 
+const { isLoggedIn } = require("./gateKeepingMiddleware");
+
 // GET /api/orders/cart/:userId      returns cart for specific user
-router.get("/cart/:userId", async (req, res, next) => {
+router.get("/cart/:userId", isLoggedIn,async (req, res, next) => {
   try {
     const orderIdFromDb = await Order.getOrderIdForCartDisplay(
       req.params.userId
@@ -28,7 +30,7 @@ router.get("/cart/:userId", async (req, res, next) => {
 });
 
 // POST /api/orders/cart/:userId/:productId         adds item to cart (no such items in the cart)
-router.post("/cart/:userId/:productId", async (req, res, next) => {
+router.post("/cart/:userId/:productId", isLoggedIn,async (req, res, next) => {
   try {
     const orderIdFromDb = await Order.getOrderIdForAddToCart(req.params.userId);
 
@@ -50,7 +52,7 @@ router.post("/cart/:userId/:productId", async (req, res, next) => {
 });
 
 // PUT /api/orders/cart/:userId/:productId         adds/removes item to/from cart (such item in the cart already exists)
-router.put("/cart/:userId/:productId", async (req, res, next) => {
+router.put("/cart/:userId/:productId", isLoggedIn,async (req, res, next) => {
   try {
     const orderIdFromDb = await Order.getOrderIdForAddToCart(req.params.userId);
 
@@ -72,7 +74,7 @@ router.put("/cart/:userId/:productId", async (req, res, next) => {
 
 // DELETE /api/orders/cart/:userId/:productId         deletes item from cart (all quantity)
 
-router.delete("/cart/:userId/:productId", async (req, res, next) => {
+router.delete("/cart/:userId/:productId", isLoggedIn, async (req, res, next) => {
   try {
     const orderIdFromDb = await Order.getOrderIdForCartDisplay(
       req.params.userId
@@ -93,7 +95,7 @@ router.delete("/cart/:userId/:productId", async (req, res, next) => {
   }
 });
 
-router.put("/cart/:userId", async (req, res, next) => {
+router.put("/cart/:userId", isLoggedIn, async (req, res, next) => {
   try {
     const orderIdFromDb = await Order.getOrderIdForCartDisplay(
       req.params.userId

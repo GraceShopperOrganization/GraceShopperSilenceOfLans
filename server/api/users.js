@@ -20,10 +20,10 @@ router.get("/", isLoggedIn, isAdmin, async (req, res, next) => {
 });
 
 // POST /api/users
-router.post("/", async (req, res, next) => {
+router.post("/",async (req, res, next) => {
   try {
-    //destructure
-    res.status(201).send(await User.create(req.body));
+    const {firstName,lastName,email,password,address,username} = req.body
+    res.status(201).send(await User.create({firstName,lastName,email,password,address,username}));
   } catch (err) {
     next(err);
   }

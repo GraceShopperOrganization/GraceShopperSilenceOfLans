@@ -16,9 +16,10 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST /api/products/
-router.post("/", async (req, res, next) => {
+router.post("/create", async (req, res, next) => {
   try {
-      const newProduct = await Product.create(req.body);
+    const {productName,description,imageUrl,price,inventory,category} = req.body
+      const newProduct = await Product.create({productName,description,imageUrl,price,inventory,category});
       res.json(newProduct);
   } catch (err) {
       next(err);
@@ -28,8 +29,9 @@ router.post("/", async (req, res, next) => {
 //PUT /api/product/:id
 router.put("/:id", isLoggedIn, isAdmin, async (req, res, next) => {
   try {
+    const {productName,description,imageUrl,price,inventory,category} = req.body
     const product = await Product.findByPk(req.params.id);
-    const updatedProduct = await product.update(req.body);
+    const updatedProduct = await product.update({productName,description,imageUrl,price,inventory,category});
     res.send(updatedProduct);
   } catch (err) {
     console.log("ERROR FROM PUT PRODUCT")
@@ -63,13 +65,4 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-// POST /api/products/
-router.post("/", async (req, res, next) => {
-    try {
-        const newProduct = await Product.create(req.body);
-        res.json(newProduct);
-    } catch (err) {
-        next(err);
-    }
-});
 module.exports = router;

@@ -45,23 +45,23 @@ class NewUser extends Component {
         <form onSubmit={submitHandler}>
           <div className="input-row">
             <label>First Name</label>
-            <input name="firstName" onChange={updateHandler} value={firstName} />
+            <input name="firstName" onChange={updateHandler} value={firstName} placeholder="Ex: Carl"/>
           </div>
           <div className="input-row">
             <label>Last Name</label>
-            <input name="lastName" onChange={updateHandler} value={lastName} />
+            <input name="lastName" onChange={updateHandler} value={lastName} placeholder="Ex: Marx"/>
           </div>
           <div className="input-row">
             <label>Username</label>
-            <input name="username" onChange={updateHandler} value={username} />
+            <input name="username" onChange={updateHandler} value={username} placeholder="Ex: carlmarx123"/>
           </div>
           <div className="input-row">
             <label>Email</label>
-            <input name="email" onChange={updateHandler} value={email} />
+            <input name="email" onChange={updateHandler} value={email} placeholder="Ex: carlmarx@greenshopper.com"/>
           </div>
           <div className="input-row">
             <label>Password</label>
-            <input type="password" name="password" onChange={updateHandler} value={password} />
+            <input type="password" name="password" onChange={updateHandler} value={password} placeholder="Ex: ***"/>
           </div>
           <button className="signup-btn" type="submit">Create Account</button>
         </form>
