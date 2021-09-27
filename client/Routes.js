@@ -12,8 +12,6 @@ import CreateProduct from "./components/CreateProduct";
 import NewUser from "./components/NewUser";
 import Cart from "./components/Cart";
 
-
-
 /**
  * COMPONENT
  */
@@ -30,15 +28,15 @@ class Routes extends Component {
       <div>
         {isAdmin ? (
           <Switch>
-             <Route exact path="/create" component={CreateProduct}/>
             <Route exact path="/users" component={Userlist} />
+            <Route exact path="/products/create" component={CreateProduct} />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/users">
               For Admins Only!
             </Route>
-            <Route exact path="/create">
+            <Route exact path="/products/create">
               For Admins Only!
             </Route>
           </Switch>
@@ -46,25 +44,21 @@ class Routes extends Component {
 
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exact path="/products" component={Products} />
             <Route exact path="/cart" component={Cart} />
-            <Route path="/home" component={Home} />
-            <Route exact path="/users" component={Userlist} />
-            {/* <Redirect to="/home" /> */}
-
+            {/* //add checkout here */}
           </Switch>
         ) : (
           <Switch>
-            <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exact path="/products" component={Products} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={NewUser} />
-            <Route path="/" exact component={Login} />
             <Route exact path="/cart" component={Cart} />
-
+             {/* //add checkout here */}
           </Switch>
         )}
+        <Switch>
+          <Route exact path="/products/:productId(\d+)" component={Product} />
+          <Route exact path="/products" component={Products} />
+        </Switch>
       </div>
     );
   }
@@ -75,20 +69,20 @@ class Routes extends Component {
  */
 
 const mapState = (state) => {
-    return {
-        // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-        // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-        isLoggedIn: !!state.auth.id,
-        isAdmin: state.auth.isAdmin
-    };
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
+    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
+    isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.isAdmin,
+  };
 };
 
 const mapDispatch = (dispatch) => {
-    return {
-        loadInitialData() {
-            dispatch(me());
-        }
-    };
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
