@@ -43,7 +43,7 @@ class Userlist extends React.Component {
 
 const mapState = (state) => {
   return {
-    users: state.Userlist,
+    users: state.userlist,
   };
 };
 

@@ -23,6 +23,7 @@ const users = [
         isAdmin: true
     },
     {
+
         firstName: "James",
         lastName: "Bond",
         username: "jamesbond",
@@ -30,8 +31,9 @@ const users = [
         password: "password007",
         email: "bond@example.com",
         isAdmin: false
+
     }
-];
+ ];
 
 // const products = [
 //   {

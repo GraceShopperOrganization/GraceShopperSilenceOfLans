@@ -10,6 +10,9 @@ import Product from "./components/Product";
 import NewUser from "./components/NewUser";
 import Cart from "./components/Cart";
 
+import CreateProduct from "./components/CreateProduct";
+
+
 /**
  * COMPONENT
  */
@@ -18,32 +21,34 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
-
+  
   render() {
     const { isLoggedIn, isAdmin } = this.props;
 
     return (
-      //TODO: redirects to home when i go to users as admin , commented logic below
       <div>
-        {/* {isAdmin ? (
-
-      <Switch>
-        <Route exact path="/users" component={Userlist} />
-      </Switch>
-    ) : (
-      <Switch>
-        <Route exact path="/users">For Admins Only!</Route>
-      </Switch>
-    )} */}
+        {isAdmin ? (
+          <Switch>
+             <Route exact path="/create" component={CreateProduct}/>
+            <Route exact path="/users" component={Userlist} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/users">
+              For Admins Only!
+            </Route>
+            <Route exact path="/create">
+              For Admins Only!
+            </Route>
+          </Switch>
+        )}
 
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/users" component={Userlist} />
             <Route path="/home" component={Home} />
-            <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exact path="/products" component={Products} />
-            <Route exact path="/cart" component={Cart} />
-            <Redirect to="/home" />
+            <Route exact path="/users" component={Userlist} />
+            {/* <Redirect to="/home" /> */}
+
           </Switch>
         ) : (
           <Switch>
@@ -53,6 +58,7 @@ class Routes extends Component {
             <Route path="/signup" component={NewUser} />
             <Route path="/" exact component={Login} />
             <Route exact path="/cart" component={Cart} />
+
           </Switch>
         )}
       </div>
@@ -66,10 +72,10 @@ class Routes extends Component {
 
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
-    isAdmin: state.auth.isAdmin,
+      // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
+      // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
+      isLoggedIn: !!state.auth.id,
+      isAdmin: state.auth.isAdmin
   };
 };
 

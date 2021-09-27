@@ -19,7 +19,7 @@ const Product = db.define("product", {
             "https://watchandlearn.scholastic.com/content/dam/classroom-magazines/watchandlearn/videos/animals-and-plants/plants/what-are-plants-/What-Are-Plants.jpg"
     },
     price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     inventory: {
