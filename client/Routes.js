@@ -41,18 +41,18 @@ class Routes extends Component {
             <Route exact path="/users" component={Userlist} />
             <Route path="/home" component={Home} />
             <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exect path="/products" component={Products} />
-            <Route exect path="/cart" component={Cart} />
+            <Route exact path="/products" component={Products} />
+            <Route exact path="/cart" component={Cart} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exect path="/products" component={Products} />
+            <Route exact path="/products" component={Products} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={NewUser} />
             <Route path="/" exact component={Login} />
-            <Route exect path="/cart" component={Cart} />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         )}
       </div>
