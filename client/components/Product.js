@@ -22,7 +22,6 @@ export class Product extends React.Component {
   render() {
     const product = this.props.product;
     const cart = this.props.cart;
-    console.log(this.props.match.params.productId);
 
     return (
       <div className="single-product--main-container">
