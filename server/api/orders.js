@@ -13,7 +13,7 @@ router.get("/cart/:userId", async (req, res, next) => {
     let cartItems = [];
 
     if (orderIdFromDb === null) {
-      cartItems = null;
+      cartItems = [];
     } else {
       cartItems = await Order_detail.findAll({
         where: { orderId: orderIdFromDb },
