@@ -18,6 +18,13 @@ export const _createProduct = (product) => {
     };
 };
 
+export const _createProduct = (product) => {
+    return {
+        type: CREATE_PRODUCT,
+        product
+    };
+};
+
 // ASYNC ACTION CREATOR ------------------------------------------------
 export const fetchProducts = () => {
     return async (dispatch) => {
@@ -30,6 +37,17 @@ export const fetchProducts = () => {
         }
     };
 };
+export const createNewProduct = (product) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.post("/api/products", product);
+            dispatch(_createProduct(data));
+        } catch (err) {
+            console.log("CREATE A NEW PRODUCT ERR:", err);
+        }
+    };
+};
+
 export const createNewProduct = (product) => {
     return async (dispatch) => {
         try {

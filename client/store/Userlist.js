@@ -13,8 +13,15 @@ const getUsers = (users) => ({
 export const fetchUsers = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/users");
-      dispatch(getUsers(data));
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.get("/api/users", {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(getUsers(data));
+      }
     } catch (err) {
       console.log(err);
     }

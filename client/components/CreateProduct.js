@@ -19,6 +19,7 @@ class CreateProduct extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+
     handleSubmit(event) {
         event.preventDefault();
         this.props.createProduct({ ...this.state });
@@ -93,8 +94,8 @@ class CreateProduct extends React.Component {
     }
 }
 
-const mapDisptach = (dispatch) => ({
+const mapDispatch = (dispatch) => ({
     createProduct: (product) => dispatch(createNewProduct(product))
 });
 
-export default connect(null, mapDisptach)(CreateProduct);
+export default connect(null, mapDispatch)(CreateProduct);
