@@ -3,6 +3,7 @@ import axios from "axios";
 //ACTION TYPES
 const GET_CART_CONTENT = "GET_CART_CONTENT";
 const ADD_NEW_PRODUCT_TO_CART = "ADD_NEW_PRODUCT_TO_CART";
+const SET_CART_FROM_LOCAL_STORAGE = "SET_CART_FROM_LOCAL_STORAGE";
 const EDIT_CART_QUANTITY = "EDIT_CART_QUANTITY";
 const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 const PLACE_ORDER = "PLACE_ORDER";
@@ -15,6 +16,11 @@ export const _getCartContent = (cart) => ({
 
 export const _addNewProductToCart = (cart) => ({
   type: ADD_NEW_PRODUCT_TO_CART,
+  cart,
+});
+
+export const _setCart = (cart) => ({
+  type: SET_CART_FROM_LOCAL_STORAGE,
   cart,
 });
 
@@ -72,6 +78,8 @@ export default function cartReducer(state = initialState, action) {
     case GET_CART_CONTENT:
       return action.cart;
     case ADD_NEW_PRODUCT_TO_CART:
+      return action.cart;
+    case SET_CART_FROM_LOCAL_STORAGE:
       return action.cart;
     case EDIT_CART_QUANTITY:
       return action.cart;

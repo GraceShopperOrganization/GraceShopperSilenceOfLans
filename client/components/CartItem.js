@@ -1,15 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editCartQuantity, removeProductFromCart } from "../store/orders";
+import {
+  editCartQuantity,
+  removeProductFromCart,
+  _setCart,
+} from "../store/orders";
 
 class CartItem extends React.Component {
   render() {
     return (
-      <div>
-        <img src={this.props.product.imageUrl} />
-        <div>{this.props.product.productName}</div>
-        <div>${this.props.product.price}</div>
+      <div className="cart--main-container">
+        <img className="cart-product--img" src={this.props.product.imageUrl} />
+        <div className="cart--product-name">
+          {this.props.product.productName}
+        </div>
+        <div className="cart--product-price">${this.props.product.price}</div>
         <button
+          className="cart--plusminusbtn"
           onClick={async () => {
             const newQty = this.props.cartItem.quantity - 1;
 
@@ -28,13 +35,15 @@ class CartItem extends React.Component {
                 }
               }
               localStorage.setItem("products", JSON.stringify(cart));
+              this.props.setCartFromLocalStorage(cart);
             }
           }}
         >
           -
         </button>
-        <div>{this.props.cartItem.quantity}</div>
+        <div className="cart--product-qty">{this.props.cartItem.quantity}</div>
         <button
+          className="cart--plusminusbtn"
           onClick={async () => {
             const newQty = this.props.cartItem.quantity + 1;
 
@@ -53,13 +62,17 @@ class CartItem extends React.Component {
                 }
               }
               localStorage.setItem("products", JSON.stringify(cart));
+              this.props.setCartFromLocalStorage(cart);
             }
           }}
         >
           +
         </button>
-        <div>${this.props.product.price * this.props.cartItem.quantity}</div>
+        <div className="cart--product-subtotal">
+          ${this.props.product.price * this.props.cartItem.quantity}
+        </div>
         <button
+          className="cart--plusminusbtn"
           onClick={async () => {
             if (localStorage.getItem("token")) {
               await this.props.remove(this.props.userId, this.props.product.id);
@@ -70,10 +83,11 @@ class CartItem extends React.Component {
                 (item) => item.productId !== this.props.product.id
               );
               localStorage.setItem("products", JSON.stringify(newCart));
+              this.props.setCartFromLocalStorage(cart);
             }
           }}
         >
-          Remove from cart
+          X
         </button>
       </div>
     );
@@ -83,6 +97,8 @@ class CartItem extends React.Component {
 const mapDispatch = (dispatch) => ({
   editQty: (userId, productId, quantity) =>
     dispatch(editCartQuantity(userId, productId, quantity)),
+
+  setCartFromLocalStorage: (cart) => dispatch(_setCart(cart)),
 
   remove: (userId, productId) =>
     dispatch(removeProductFromCart(userId, productId)),

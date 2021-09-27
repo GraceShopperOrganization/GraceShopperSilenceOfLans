@@ -5,12 +5,17 @@ import {
   getCartContent,
   editCartQuantity,
   removeProductFromCart,
+  _setCart,
 } from "../store/orders";
 import { fetchProducts } from "../store/products";
 
 class Cart extends React.Component {
   async componentDidMount() {
     await this.props.getProducts();
+    if (!localStorage.getItem("token")) {
+      let localCart = JSON.parse(localStorage.getItem("products"));
+      this.props.setCartFromLocalStorage(localCart);
+    }
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -34,13 +39,7 @@ class Cart extends React.Component {
       );
     }
 
-    let cart = [];
-
-    if (localStorage.getItem("token")) {
-      cart = this.props.cart;
-    } else {
-      cart = JSON.parse(localStorage.getItem("products"));
-    }
+    let cart = this.props.cart;
 
     return (
       <div>
@@ -55,8 +54,8 @@ class Cart extends React.Component {
             )}
           />
         ))}
-        <div>Total</div>
-        <button>Checkout</button>
+        <div className="cart--total">Total</div>
+        <button className="cart--checkoutbtn">Checkout</button>
       </div>
     );
   }
@@ -74,6 +73,8 @@ const mapDispatch = (dispatch) => ({
   getCartContent: (userId) => dispatch(getCartContent(userId)),
 
   getProducts: () => dispatch(fetchProducts()),
+
+  setCartFromLocalStorage: (cart) => dispatch(_setCart(cart)),
 
   editQty: (userId, productId, quantity) =>
     dispatch(editCartQuantity(userId, productId, quantity)),
