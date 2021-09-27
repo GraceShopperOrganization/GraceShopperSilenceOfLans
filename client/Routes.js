@@ -12,8 +12,6 @@ import CreateProduct from "./components/CreateProduct";
 import NewUser from "./components/NewUser";
 import Cart from "./components/Cart";
 
-import CreateProduct from "./components/CreateProduct";
-
 
 
 /**
