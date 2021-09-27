@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Product },
+    models: { Product }
 } = require("../db");
 const { isLoggedIn, isAdmin } = require("./gateKeepingMiddleware");
 
@@ -52,13 +52,24 @@ router.delete("/:id", isLoggedIn, isAdmin, async (req, res, next) => {
 
 // GET /api/products/:id
 router.get("/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const singleProduct = await Product.findByPk(id);
-    res.json(singleProduct);
-  } catch (err) {
-    console.log("> GET /api/products/:ID ERR: ", err);
-    next(err);
-  }
+    try {
+        const { id } = req.params;
+        const singleProduct = await Product.findByPk(id);
+        // console.log("GET SINGLE_PRODUCT > ", singleProduct);
+        res.json(singleProduct);
+    } catch (err) {
+        console.log("> GET /api/products/:ID ERR: ", err);
+        next(err);
+    }
+});
+
+// POST /api/products/
+router.post("/", async (req, res, next) => {
+    try {
+        const newProduct = await Product.create(req.body);
+        res.json(newProduct);
+    } catch (err) {
+        next(err);
+    }
 });
 module.exports = router;

@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import { createNewProduct } from "../store/products";
+
 class CreateProduct extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +18,8 @@ class CreateProduct extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+
     handleSubmit(event) {
         event.preventDefault();
         this.props.createProduct({ ...this.state });
@@ -28,11 +32,13 @@ class CreateProduct extends React.Component {
             category: ""
         });
     }
+
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
+
     render() {
         // console.log("CREATE_PRODUCT STATE > ", this.state);
         const { productName, description, price, category, inventory } =
@@ -87,7 +93,9 @@ class CreateProduct extends React.Component {
         );
     }
 }
-const mapDisptach = (dispatch) => ({
+
+const mapDispatch = (dispatch) => ({
     createProduct: (product) => dispatch(createNewProduct(product))
 });
-export default connect(null, mapDisptach)(CreateProduct);
+
+export default connect(null, mapDispatch)(CreateProduct);
