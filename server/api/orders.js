@@ -107,7 +107,6 @@ router.delete("/cart/:userId/:productId", async (req, res, next) => {
     }
 });
 
-
 //creates order line item (unlogged user places the order)
 //creates order details line item (unlogged user places the order)
 
@@ -158,7 +157,30 @@ router.post("/cart/placeOrderUnlogged", async (req, res, next) => {
     console.log("> POST /api/orders ERR: ", err);
     next(err);
   }
+})
 
+router.put("/cart/:userId", async (req, res, next) => {
+    try {
+        await Order.update(
+            { totalPrice: req.body.totalPrice, isPaid: true },
+            {
+                where: { userId: req.params.userId }
+            })
+
+        const cartItems = req.body.orderInfo.items.map(async cartItem =>{
+            return await Order_detail.update(
+                { price: cartItem.price },
+                {
+                    where: { orderId: cartItem.orderId }
+                }
+            )}
+        )
+
+        res.json(await Promise.all(cartItems));
+    } catch (err) {
+        console.log("> POST /api/orders ERR: ", err);
+        next(err);
+    }
 });
 
 //updates order line item (logged user places the order)
