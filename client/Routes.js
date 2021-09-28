@@ -11,6 +11,7 @@ import CreateProduct from "./components/CreateProduct";
 
 import NewUser from "./components/NewUser";
 import Cart from "./components/Cart";
+import FinalPage from "./components/FinalPage";
 
 /**
  * COMPONENT
@@ -45,6 +46,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/final" component={FinalPage} />
             {/* //add checkout here */}
           </Switch>
         ) : (
@@ -52,7 +54,8 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={NewUser} />
             <Route exact path="/cart" component={Cart} />
-             {/* //add checkout here */}
+            <Route exact path="/final" component={FinalPage} />
+            {/* //add checkout here */}
           </Switch>
         )}
         <Switch>
