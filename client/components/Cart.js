@@ -12,6 +12,13 @@ import { fetchProducts } from "../store/products";
 import { withRouter } from "react-router-dom";
 
 class Cart extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      total: 0
+    }
+  }
+
   async componentDidMount() {
     await this.props.getProducts();
     if (!localStorage.getItem("token")) {
@@ -20,15 +27,37 @@ class Cart extends React.Component {
         localCart = [];
       }
       this.props.setCartFromLocalStorage(localCart);
-    } else {
+    } else if (this.props.auth.id){
       await this.props.getCartContent(this.props.auth.id);
     }
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    if (this.props.auth.id !== prevProps.auth.id) {
+  async componentDidUpdate(prevProps) {
+    if (this.props.auth.id !== prevProps.auth.id){
       await this.props.getCartContent(this.props.auth.id);
     }
+    if (this.props.cart !== prevProps.cart) {
+      this.calculateOrderTotal()
+    }
+  }
+
+  calculateOrderTotal = () => {
+    const { cart, products } = this.props;
+    const cartItems = cart.map(cartItem => {
+      const product = products.find(
+        (item) => item.id == cartItem.productId
+      )
+      cartItem.price = product.price;
+      return cartItem
+    })
+
+    let subtotal = 0
+    cartItems.forEach(item => {
+      subtotal += item.quantity * item.price
+    });
+    this.setState(
+      { total: subtotal }
+    )
   }
 
   async clickHandler(e) {
