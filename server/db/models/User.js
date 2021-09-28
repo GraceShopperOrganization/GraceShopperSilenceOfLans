@@ -22,7 +22,6 @@ const User = db.define("user", {
     },
     address: {
         type: Sequelize.TEXT,
-        allowNull: true
     },
     password: {
         type: Sequelize.STRING,

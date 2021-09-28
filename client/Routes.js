@@ -28,15 +28,19 @@ class Routes extends Component {
             <div>
                 {isAdmin ? (
                     <Switch>
-                        <Route exact path="/create" component={CreateProduct} />
                         <Route exact path="/users" component={Userlist} />
+                        <Route
+                            exact
+                            path="/products/create"
+                            component={CreateProduct}
+                        />
                     </Switch>
                 ) : (
                     <Switch>
                         <Route exact path="/users">
                             For Admins Only!
                         </Route>
-                        <Route exact path="/create">
+                        <Route exact path="/products/create">
                             For Admins Only!
                         </Route>
                     </Switch>
@@ -44,31 +48,25 @@ class Routes extends Component {
 
                 {isLoggedIn ? (
                     <Switch>
-                        <Route
-                            exact
-                            path="/products/:productId(\d+)"
-                            component={Product}
-                        />
-                        <Route exact path="/products" component={Products} />
                         <Route exact path="/cart" component={Cart} />
-                        <Route path="/home" component={Home} />
-                        <Route exact path="/users" component={Userlist} />
-                        {/* <Redirect to="/home" /> */}
+                        {/* //add checkout here */}
                     </Switch>
                 ) : (
                     <Switch>
-                        <Route
-                            exact
-                            path="/products/:productId(\d+)"
-                            component={Product}
-                        />
-                        <Route exact path="/products" component={Products} />
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={NewUser} />
-                        <Route path="/" exact component={Login} />
                         <Route exact path="/cart" component={Cart} />
+                        {/* //add checkout here */}
                     </Switch>
                 )}
+                <Switch>
+                    <Route
+                        exact
+                        path="/products/:productId(\d+)"
+                        component={Product}
+                    />
+                    <Route exact path="/products" component={Products} />
+                </Switch>
             </div>
         );
     }
