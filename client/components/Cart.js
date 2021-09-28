@@ -8,13 +8,19 @@ import {
   _setCart,
 } from "../store/orders";
 import { fetchProducts } from "../store/products";
+import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
   async componentDidMount() {
     await this.props.getProducts();
     if (!localStorage.getItem("token")) {
       let localCart = JSON.parse(localStorage.getItem("products"));
+      if (localCart === null) {
+        localCart = [];
+      }
       this.props.setCartFromLocalStorage(localCart);
+    } else {
+      await this.props.getCartContent(this.props.auth.id);
     }
   }
 
@@ -31,7 +37,7 @@ class Cart extends React.Component {
 
     let cartNotLogged = JSON.parse(localStorage.getItem("products"));
 
-    if (this.props.cart.length === 0 && cartNotLogged.length === 0) {
+    if (this.props.cart.length === 0 && cartNotLogged === null) {
       return (
         <div>
           <p>Cart is empty</p>
@@ -55,7 +61,9 @@ class Cart extends React.Component {
           />
         ))}
         <div className="cart--total">Total</div>
-        <button className="cart--checkoutbtn">Checkout</button>
+        <Link to={`/final`}>
+          <button className="cart--checkoutbtn">Checkout</button>
+        </Link>
       </div>
     );
   }
