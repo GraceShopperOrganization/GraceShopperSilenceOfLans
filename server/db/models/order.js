@@ -8,11 +8,14 @@ const Order = db.define("order", {
   },
   orderAddress: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    // allowNull: false,
   },
   totalPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
+  },
+  orderIdForClient: {
+    type: Sequelize.INTEGER,
   },
 });
 
