@@ -12,62 +12,66 @@ import CreateProduct from "./components/CreateProduct";
 import NewUser from "./components/NewUser";
 import Cart from "./components/Cart";
 
-
-
 /**
  * COMPONENT
  */
 
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData();
-  }
+    componentDidMount() {
+        this.props.loadInitialData();
+    }
 
-  render() {
-    const { isLoggedIn, isAdmin } = this.props;
+    render() {
+        const { isLoggedIn, isAdmin } = this.props;
 
-    return (
-      <div>
-        {isAdmin ? (
-          <Switch>
-             <Route exact path="/create" component={CreateProduct}/>
-            <Route exact path="/users" component={Userlist} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route exact path="/users">
-              For Admins Only!
-            </Route>
-            <Route exact path="/create">
-              For Admins Only!
-            </Route>
-          </Switch>
-        )}
+        return (
+            <div>
+                {isAdmin ? (
+                    <Switch>
+                        <Route exact path="/create" component={CreateProduct} />
+                        <Route exact path="/users" component={Userlist} />
+                    </Switch>
+                ) : (
+                    <Switch>
+                        <Route exact path="/users">
+                            For Admins Only!
+                        </Route>
+                        <Route exact path="/create">
+                            For Admins Only!
+                        </Route>
+                    </Switch>
+                )}
 
-        {isLoggedIn ? (
-          <Switch>
-            <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exact path="/products" component={Products} />
-            <Route exact path="/cart" component={Cart} />
-            <Route path="/home" component={Home} />
-            <Route exact path="/users" component={Userlist} />
-            {/* <Redirect to="/home" /> */}
-
-          </Switch>
-        ) : (
-          <Switch>
-            <Route exact path="/products/:productId(\d+)" component={Product} />
-            <Route exact path="/products" component={Products} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={NewUser} />
-            <Route path="/" exact component={Login} />
-            <Route exact path="/cart" component={Cart} />
-
-          </Switch>
-        )}
-      </div>
-    );
-  }
+                {isLoggedIn ? (
+                    <Switch>
+                        <Route
+                            exact
+                            path="/products/:productId(\d+)"
+                            component={Product}
+                        />
+                        <Route exact path="/products" component={Products} />
+                        <Route exact path="/cart" component={Cart} />
+                        <Route path="/home" component={Home} />
+                        <Route exact path="/users" component={Userlist} />
+                        {/* <Redirect to="/home" /> */}
+                    </Switch>
+                ) : (
+                    <Switch>
+                        <Route
+                            exact
+                            path="/products/:productId(\d+)"
+                            component={Product}
+                        />
+                        <Route exact path="/products" component={Products} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/signup" component={NewUser} />
+                        <Route path="/" exact component={Login} />
+                        <Route exact path="/cart" component={Cart} />
+                    </Switch>
+                )}
+            </div>
+        );
+    }
 }
 
 /**
