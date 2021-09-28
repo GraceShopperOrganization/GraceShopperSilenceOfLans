@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import {
+    getCartContent,
+    addNewProductToCart,
+    editCartQuantity
+} from "../store/orders";
 import { fetchProducts, deleteProduct } from "../store/products";
 import CreateProduct from "./CreateProduct";
 
@@ -17,7 +21,7 @@ class Products extends React.Component {
 
     handleClick(event) {
         event.preventDefault();
-        console.log("TARGET VALUE > ", Number(event.currentTarget.value));
+        // console.log("TARGET VALUE > ", Number(event.currentTarget.value));
         this.props.deleteProduct(Number(event.currentTarget.value));
     }
 
@@ -57,9 +61,6 @@ class Products extends React.Component {
                                                 type="submit"
                                                 value={product.id}
                                                 onClick={this.handleClick}
-                                                // onClick={() =>
-                                                //     deleteProduct(product.id)
-                                                // }
                                             >
                                                 Delete Product
                                             </button>
@@ -96,6 +97,117 @@ class Products extends React.Component {
                                             <button
                                                 className="all-products--addToCartBtn"
                                                 type="button"
+                                                onClick={
+                                                    localStorage.getItem(
+                                                        "token"
+                                                    )
+                                                        ? async () => {
+                                                              let filtered =
+                                                                  this.props.cart.filter(
+                                                                      (
+                                                                          item
+                                                                      ) => {
+                                                                          console.log(
+                                                                              "ITEM > ",
+                                                                              item
+                                                                          );
+                                                                          return (
+                                                                              item.productId ==
+                                                                              product.id
+                                                                          );
+                                                                      }
+                                                                  );
+                                                              console.log(
+                                                                  "FILTERD_ITEMS > ",
+                                                                  filtered
+                                                              );
+                                                              if (
+                                                                  filtered.length ===
+                                                                  0
+                                                              ) {
+                                                                  await this.props.addToCartNew(
+                                                                      this.props
+                                                                          .auth
+                                                                          .id,
+                                                                      product.id
+                                                                  );
+                                                              } else {
+                                                                  let newQty =
+                                                                      filtered[0]
+                                                                          .quantity +
+                                                                      1;
+                                                                  await this.props.addToCartEx(
+                                                                      this.props
+                                                                          .auth
+                                                                          .id,
+                                                                      product.id,
+                                                                      newQty
+                                                                  );
+                                                              }
+                                                          }
+                                                        : () => {
+                                                              let products = [];
+                                                              if (
+                                                                  localStorage.getItem(
+                                                                      "products"
+                                                                  )
+                                                              ) {
+                                                                  products =
+                                                                      JSON.parse(
+                                                                          localStorage.getItem(
+                                                                              "products"
+                                                                          )
+                                                                      );
+                                                              }
+
+                                                              let unique = true;
+
+                                                              for (
+                                                                  let i = 0;
+                                                                  i <
+                                                                  products.length;
+                                                                  i++
+                                                              ) {
+                                                                  if (
+                                                                      products[
+                                                                          i
+                                                                      ]
+                                                                          .productId ===
+                                                                      product.id
+                                                                  ) {
+                                                                      products[
+                                                                          i
+                                                                      ].quantity =
+                                                                          products[
+                                                                              i
+                                                                          ]
+                                                                              .quantity +
+                                                                          1;
+                                                                      unique = false;
+                                                                  }
+                                                              }
+
+                                                              if (
+                                                                  unique ===
+                                                                  true
+                                                              ) {
+                                                                  products.push(
+                                                                      {
+                                                                          productId:
+                                                                              product.id,
+                                                                          quantity: 1
+                                                                      }
+                                                                  );
+                                                              }
+
+                                                              localStorage.setItem(
+                                                                  "products",
+                                                                  JSON.stringify(
+                                                                      products
+                                                                  )
+                                                              );
+                                                          }
+                                                }
                                             >
                                                 Add to cart
                                             </button>
@@ -116,7 +228,9 @@ const mapState = (state) => {
     return {
         products: state.productsReducer,
         isAdmin: state.auth.isAdmin,
-        isLoggedIn: !!state.auth.id
+        isLoggedIn: !!state.auth.id,
+        cart: state.cart,
+        auth: state.auth
     };
 };
 
@@ -124,7 +238,12 @@ const mapDsipatch = (dispatch, { history }) => {
     return {
         fetchProducts: () => dispatch(fetchProducts()),
         deleteProduct: (productId) =>
-            dispatch(deleteProduct(productId, history))
+            dispatch(deleteProduct(productId, history)),
+        getCartContent: (userId) => dispatch(getCartContent(userId)),
+        addToCartNew: (userId, productId) =>
+            dispatch(addNewProductToCart(userId, productId)),
+        addToCartEx: (userId, productId, quantity) =>
+            dispatch(editCartQuantity(userId, productId, quantity))
     };
 };
 
