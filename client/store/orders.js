@@ -37,6 +37,11 @@ export const _removeProductFromCart = (cart) => ({
 export const _placeOrderUnlogged = (cart) => ({
   type: PLACE_ORDER_UNLOGGED,
   cart,
+})
+
+export const _placeOrder = (cart) => ({
+  type: PLACE_ORDER,
+  cart: [],
 });
 
 //THUNK CREATORS
@@ -76,6 +81,11 @@ export const placeOrderUnl = (order, orderForClient) => async (dispatch) => {
   });
   dispatch(_placeOrderUnlogged(data));
 };
+export const placeOrder = (userId, orderInfo) => async (dispatch) => {
+  const { data } = await axios.put(`/api/orders/cart/${userId}`,
+  { orderInfo });
+  dispatch(_placeOrder(data))
+}
 
 //INITIAL STATE
 const initialState = [];
@@ -94,6 +104,8 @@ export default function cartReducer(state = initialState, action) {
     case REMOVE_PRODUCT_FROM_CART:
       return action.cart;
     case PLACE_ORDER_UNLOGGED:
+      return action.cart;
+    case PLACE_ORDER:
       return action.cart;
     default:
       return state;
