@@ -1,76 +1,76 @@
 body {
-  font-family: "Rosario", sans-serif;
-  margin: 0;
+    font-family: "Rosario", sans-serif;
+    margin: 0;
 }
 
 a {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 nav {
-  display: flex;
-  width: 100%;
-  height: 75px;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 25px;
+    display: flex;
+    width: 100%;
+    height: 75px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 25px;
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+    display: inline-block;
+    margin: 1em;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 400px;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+    margin: 1em;
+    display: inline-block;
 }
 
 h1 {
-  margin: 0;
+    margin: 0;
 }
 
 h2 {
-  display: flex;
-  justify-content: center;
-  color: #09a599;
+    display: flex;
+    justify-content: center;
+    color: #09a599;
 }
 
 #navbar {
-  display: flex;
-  align-items: center;
-  background-color: #09a599;
-  color: white;
+    display: flex;
+    align-items: center;
+    background-color: #09a599;
+    color: white;
 }
 
 .login-buttons {
-  margin-right: 25px;
+    margin-right: 25px;
 }
 
 .logo {
-  margin-left: 25px;
-  margin-right: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
-/* ------------------------------ALL PRODUCTS CONTAINER-------------------------------- */
+/* ---------------------------ALL PRODUCTS CONTAINER-------------------------------- */
 .all-products--main--container {
-  height: 100%;
-  width: 100%;
-  margin: 10px;
+    height: 100%;
+    width: 100%;
+    margin: 10px;
 }
 .all-products-container {
-  display: flex;
-  font-size: 0;
-  flex-wrap: wrap;
-  margin: 10px;
+    display: flex;
+    font-size: 0;
+    flex-wrap: wrap;
+    margin: 10px;
 }
 .all-products--single-container {
   border: 1px solid #09a599;
@@ -91,52 +91,52 @@ h2 {
   border-radius: 5px;
 }
 .all-products--single-contnr-description {
-  text-align: center;
+    text-align: center;
 }
 
 /* -------------FONT-FAMILY FOR ALL PRODUCT/SINGLE PRODUCT TEXT -----------------------*/
 .all-products--single-contnr-text,
 .single-product--rigth-side-description,
 .single-product--product-name {
-  font-family: "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif;
 }
 
-/* ----------------ALL PRODUCTS/SINGLE PRODUCT ADD TO CART BTNS------------------------ */
+/* --------------- ALL PRODUCTS/SINGLE PRODUCT ADD TO CART BTNS --------------------- */
 .all-products--addToCartBtn,
 .single-product--addToCartBtn {
-  background-color: #09a599;
-  border-radius: 10px;
-  border-color: #09a599;
-  color: rgb(255, 255, 255);
-  font-size: 25px;
+    background-color: #09a599;
+    border-radius: 10px;
+    border-color: #09a599;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
 }
 /* ------------------------------SINGLE PRODUCT CONTAINER--------------------------------*/
 .single-product--main-container {
-  margin: 10px;
-  /* border: 2px solid #000000; */
-  display: flex;
+    margin: 10px;
+    /* border: 2px solid #000000; */
+    display: flex;
 }
 .single-product--left-side-img {
-  border: 1px solid #f3efef;
-  border-radius: 5px;
-  margin: 20px;
-  width: 35%;
+    border: 1px solid #f3efef;
+    border-radius: 5px;
+    margin: 20px;
+    width: 35%;
 }
 .single-product--rigth-side-description {
-  border: 1px solid #f3efef;
-  border-radius: 5px;
-  margin: 20px;
-  text-align: center;
-  font-size: 20px;
+    border: 1px solid #f3efef;
+    border-radius: 5px;
+    margin: 20px;
+    text-align: center;
+    font-size: 20px;
 }
 .single-product--product-name {
-  font-size: 30px;
+    font-size: 30px;
 }
 .single-product--description {
-  margin: 20px;
+    margin: 20px;
 }
 
-/* ---------------------------------------CREATE A NEW PRODUCT COMPONENT------------------- */
+/* -------------------------------- CREATE A NEW PRODUCT COMPONENT------------------- */
 .create-new-product-component {
   border-radius: 10px;
   border-color: #09a599;
@@ -148,105 +148,105 @@ h2 {
   margin-left: 20px;
   text-align: center;
 }
-/* ------------------------------SIGNUP CONTAINER --------------------------------*/
 
+/* ------------------------------ SIGNUP CONTAINER --------------------------------*/
 .create-user-form {
-  display: flex;
-  flex-direction: column;
-  color: #09a599;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #09a599;
+    justify-content: center;
 }
 
 .signup-btn {
-  background-color: #09a599;
-  border-radius: 5px;
-  border-color: #09a599;
-  color: rgb(255, 255, 255);
-  font-size: 15px;
-  width: 200px;
-  margin-top: 25px;
-  align-self: center;
+    background-color: #09a599;
+    border-radius: 5px;
+    border-color: #09a599;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    width: 200px;
+    margin-top: 25px;
+    align-self: center;
 }
 
 .input-row {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 input {
-  border: 2px solid #09a599;
-  width: 250px;
+    border: 2px solid #09a599;
+    width: 250px;
 }
 
-/* ------------------------------CART CONTAINER--------------------------------*/
+/* ------------------------------ CART CONTAINER --------------------------------*/
 .cart--main-container {
-  margin: 10px;
-  border: 2px solid #09a599;
-  display: flex;
-  height: 150px;
+    margin: 10px;
+    border: 2px solid #09a599;
+    display: flex;
+    height: 150px;
 }
 .cart--product-img {
-  border: 1px solid #f3efef;
-  border-radius: 5px;
-  margin: 20px;
-  width: 10%;
-  height: 74px;
+    border: 1px solid #f3efef;
+    border-radius: 5px;
+    margin: 20px;
+    width: 10%;
+    height: 74px;
 }
 .cart--product-name {
-  font-size: 30px;
-  color: #09a599;
-  width: 30%;
-  align-self: center;
-  text-align: center;
+    font-size: 30px;
+    color: #09a599;
+    width: 30%;
+    align-self: center;
+    text-align: center;
 }
 
 .cart--product-price {
-  font-size: 30px;
-  color: #09a599;
-  width: 17%;
-  align-self: center;
-  text-align: center;
+    font-size: 30px;
+    color: #09a599;
+    width: 17%;
+    align-self: center;
+    text-align: center;
 }
 
 .cart--product-qty {
-  font-size: 30px;
-  color: #09a599;
-  width: 3%;
-  align-self: center;
-  text-align: center;
+    font-size: 30px;
+    color: #09a599;
+    width: 3%;
+    align-self: center;
+    text-align: center;
 }
 
 .cart--product-subtotal {
-  font-size: 30px;
-  color: #09a599;
-  width: 17%;
-  align-self: center;
-  text-align: center;
+    font-size: 30px;
+    color: #09a599;
+    width: 17%;
+    align-self: center;
+    text-align: center;
 }
 
 .cart--plusminusbtn {
-  background-color: #09a599;
-  border-radius: 10px;
-  border-color: #09a599;
-  color: rgb(255, 255, 255);
-  font-size: 25px;
-  width: 5%;
-  height: 30%;
-  align-self: center;
+    background-color: #09a599;
+    border-radius: 10px;
+    border-color: #09a599;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    width: 5%;
+    height: 30%;
+    align-self: center;
 }
 
 /* ------------------------------CART OTHER--------------------------------*/
 
 .cart--total {
-  font-size: 30px;
-  color: #09a599;
+    font-size: 30px;
+    color: #09a599;
 }
 
 .cart--checkoutbtn {
-  background-color: #09a599;
-  border-radius: 10px;
-  border-color: #09a599;
-  color: rgb(255, 255, 255);
+    background-color: #09a599;
+    border-radius: 10px;
+    border-color: #09a599;
+    color: rgb(255, 255, 255);
 }
 
 .center {

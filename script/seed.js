@@ -23,7 +23,6 @@ const users = [
         isAdmin: true
     },
     {
-
         firstName: "James",
         lastName: "Bond",
         username: "jamesbond",
@@ -31,32 +30,26 @@ const users = [
         password: "password007",
         email: "bond@example.com",
         isAdmin: false
-
+    },
+    {
+        firstName: "admin1",
+        lastName: "admin12",
+        username: "admin",
+        address: "NY",
+        password: "123",
+        email: "admnin@example.com",
+        isAdmin: true
+    },
+    {
+        firstName: "Carl",
+        lastName: "Dacota",
+        username: "user1",
+        address: "NY",
+        password: "123",
+        email: "cdacota@example.com",
+        isAdmin: false
     }
- ];
-
-// const products = [
-//   {
-//     productName: "Chinese Elm",
-//     description:
-//       "Characterized by its leaf shape and trunk structure, the Chinese Elm Bonsai tree is a perfect addition of style and grace to any coffee table. Pruning the Chinese Elm Bonsai tree will continually produce fresh leaves to any shape you choose.",
-//     imageUrl:
-//       "https://www.easternleaf.com/v/vspfiles/photos/800510-03-2T.jpg?v-cache=1474386133",
-//     price: 50,
-//     inventory: 5,
-//     category: "bonsai",
-//   },
-//   {
-//     productName: "Satsuki Azalea",
-//     description:
-//       "This flowering bonsai produces blooms during the spring and possibly during the fall with the proper care. It's blush (pink) blooms can add a refreshing touch to a room looking for natural color.",
-//     imageUrl:
-//       "https://www.easternleaf.com/v/vspfiles/photos/801460-03-2T.jpg?v-cache=1474457230",
-//     price: 40,
-//     inventory: 4,
-//     category: "bonsai",
-//   },
-// ];
+];
 
 async function seed() {
     await db.sync({ force: true }); // clears db and matches models to tables
