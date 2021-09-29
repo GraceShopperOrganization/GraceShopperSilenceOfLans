@@ -1,33 +1,34 @@
-import axios from 'axios'
+import axios from "axios";
 
-const initialState = []
+const initialState = [];
 
 //Action Constants
-const CREATE_USER = 'CREATE_USER'
+const CREATE_USER = "CREATE_USER";
 
 //Action Creators
-const createUser = user => ({
-  type: CREATE_USER,
-  user
-})
+const createUser = (user) => ({
+    type: CREATE_USER,
+    user
+});
 
 //Thunks
 //send new user to api/users/
-export const createNewUser = user => {
-  return async (dispatch) => {
-    const { data } = await axios.post('/api/users', user);
-    dispatch(createUser(data))
-  }
-}
+export const createNewUser = (user, history) => {
+    return async (dispatch) => {
+        const { data } = await axios.post("/api/users", user);
+        dispatch(createUser(data));
+        history.push("/products");
+    };
+};
 
 //Reducer
 const usersReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CREATE_USER:
-      return [...state, action.user];
-    default:
-      return state;
-  }
-}
+    switch (action.type) {
+        case CREATE_USER:
+            return [...state, action.user];
+        default:
+            return state;
+    }
+};
 
-export default usersReducer
+export default usersReducer;

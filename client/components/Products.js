@@ -26,7 +26,7 @@ class Products extends React.Component {
     }
 
     render() {
-        console.log("ALL-PRODUCTS THIS.PROPS > ", this.props);
+        // console.log("ALL-PRODUCTS THIS.PROPS > ", this.props);
         // if (!this.props.isLoggedIn) {
         //     return <div>LOADING....</div>;
         // }
@@ -55,7 +55,9 @@ class Products extends React.Component {
                                                 Plant name:{" "}
                                                 {product.productName}
                                             </h3>
-                                            <h4>Price: ${product.price}</h4>
+                                            <h4>
+                                                Price: ${product.price / 100}
+                                            </h4>
                                             <button
                                                 className="all-products--remove-product"
                                                 type="submit"
@@ -93,7 +95,9 @@ class Products extends React.Component {
                                                 Plant name:{" "}
                                                 {product.productName}
                                             </h3>
-                                            <h4>Price: ${product.price}</h4>
+                                            <h4>
+                                                Price: ${product.price / 100}
+                                            </h4>
                                             <button
                                                 className="all-products--addToCartBtn"
                                                 type="button"
@@ -107,20 +111,12 @@ class Products extends React.Component {
                                                                       (
                                                                           item
                                                                       ) => {
-                                                                          console.log(
-                                                                              "ITEM > ",
-                                                                              item
-                                                                          );
                                                                           return (
                                                                               item.productId ==
                                                                               product.id
                                                                           );
                                                                       }
                                                                   );
-                                                              console.log(
-                                                                  "FILTERD_ITEMS > ",
-                                                                  filtered
-                                                              );
                                                               if (
                                                                   filtered.length ===
                                                                   0
@@ -224,7 +220,7 @@ class Products extends React.Component {
 }
 
 const mapState = (state) => {
-    console.log("ALL PRODUCTS STATE > ", state);
+    // console.log("ALL PRODUCTS STATE > ", state);
     return {
         products: state.productsReducer,
         isAdmin: state.auth.isAdmin,

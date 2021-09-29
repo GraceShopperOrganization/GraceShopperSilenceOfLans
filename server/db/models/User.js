@@ -21,7 +21,7 @@ const User = db.define("user", {
         allowNull: false
     },
     address: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT
     },
     password: {
         type: Sequelize.STRING,
@@ -68,6 +68,9 @@ User.authenticate = async function ({ username, password }) {
 
 User.findByToken = async function (token) {
     try {
+        console.log("-> TOKEN: ", token);
+        console.log("-> JWT: ", process.env.JWT);
+
         const { id } = await jwt.verify(token, process.env.JWT);
         const user = User.findByPk(id);
         if (!user) {

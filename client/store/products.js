@@ -64,6 +64,7 @@ export const createNewProduct = (product) => {
 export const updateProduct = (productId, updates, history) => {
     return async (dispatch) => {
         const token = window.localStorage.getItem("token");
+        // console.log("TOKEN ===", token);
         if (token) {
             try {
                 const { data } = await axios.put(
@@ -84,7 +85,7 @@ export const updateProduct = (productId, updates, history) => {
 export const deleteProduct = (productId, history) => {
     return async (dispatch) => {
         const token = window.localStorage.getItem("token");
-        // console.log("TOKEN > ", token);
+        console.log("TOKEN > ", token);
         if (token) {
             try {
                 const { data } = await axios.delete(
@@ -95,7 +96,7 @@ export const deleteProduct = (productId, history) => {
                         }
                     }
                 );
-                // console.log("DELETED DATA > ", data);
+                console.log("DELETED DATA > ", data);
                 dispatch(_deleteProduct(data));
                 // history.push("/products");
             } catch (err) {
