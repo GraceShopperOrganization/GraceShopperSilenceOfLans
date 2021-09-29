@@ -3,7 +3,7 @@ const {
     models: { Order, Order_detail, Product }
 } = require("../db");
 
-const { isLoggedIn } = require("./gateKeepingMiddleware");
+const { isLoggedIn } = require("./gatekeepingMiddleware");
 
 // GET /api/orders/cart/:userId      returns cart for specific user
 router.get("/cart/:userId", async (req, res, next) => {
@@ -107,58 +107,56 @@ router.delete("/cart/:userId/:productId", async (req, res, next) => {
     }
 });
 
-
 //creates order line item (unlogged user places the order)
 //creates order details line item (unlogged user places the order)
 
 router.post("/cart/placeOrderUnlogged", async (req, res, next) => {
-  try {
-    const products = await Product.findAll();
-    const orderList = req.body.order;
+    try {
+        const products = await Product.findAll();
+        const orderList = req.body.order;
 
-    const order = await Order.create({
-      isPaid: true,
-      orderAddress: "a",
-      totalPrice: 0,
-      userId: null,
-      orderIdForClient: req.body.orderForClient,
-    });
+        const order = await Order.create({
+            isPaid: true,
+            orderAddress: "a",
+            totalPrice: 0,
+            userId: null,
+            orderIdForClient: req.body.orderForClient
+        });
 
-    let total = 0;
+        let total = 0;
 
-    orderList.map(async (orderItem) => {
-      let price = 0;
-      for (let i = 0; i < products.length; i++) {
-        if (orderItem.productId === products[i].id) {
-          price = products[i].price;
-        }
-      }
-      const subtotal = orderItem.quantity * price;
-      total += subtotal;
+        orderList.map(async (orderItem) => {
+            let price = 0;
+            for (let i = 0; i < products.length; i++) {
+                if (orderItem.productId === products[i].id) {
+                    price = products[i].price;
+                }
+            }
+            const subtotal = orderItem.quantity * price;
+            total += subtotal;
 
-      await Order_detail.create({
-        quantity: orderItem.quantity,
-        price: subtotal,
-        productId: orderItem.productId,
-        orderId: order.dataValues.id,
-      });
-    });
+            await Order_detail.create({
+                quantity: orderItem.quantity,
+                price: subtotal,
+                productId: orderItem.productId,
+                orderId: order.dataValues.id
+            });
+        });
 
-    await Order.update(
-      { totalPrice: total },
-      {
-        where: {
-          orderIdForClient: req.body.orderForClient,
-        },
-      }
-    );
+        await Order.update(
+            { totalPrice: total },
+            {
+                where: {
+                    orderIdForClient: req.body.orderForClient
+                }
+            }
+        );
 
-    res.json([]);
-  } catch (err) {
-    console.log("> POST /api/orders ERR: ", err);
-    next(err);
-  }
-
+        res.json([]);
+    } catch (err) {
+        console.log("> POST /api/orders ERR: ", err);
+        next(err);
+    }
 });
 
 //updates order line item (logged user places the order)
