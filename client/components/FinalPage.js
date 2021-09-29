@@ -7,7 +7,7 @@ class FinalPage extends React.Component {
   render() {
     return (
       <div>
-        <h2>Order successfully placed!</h2>
+        <h2>Your order #{this.props.location.state} successfully placed!</h2>
         <div className="center">
           <Link to={`/products`}>
             <button className="cart--backtoallprodbtn" type="button">

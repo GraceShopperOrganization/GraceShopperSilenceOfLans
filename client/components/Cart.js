@@ -38,7 +38,7 @@ class Cart extends React.Component {
       await this.props.placeOrderUnlogged(order, orderForClient);
       localStorage.setItem("products", JSON.stringify([]));
     }
-    this.props.history.push("/final", { orderId: orderForClient });
+    this.props.history.push("/final", orderForClient);
   }
 
   render() {
