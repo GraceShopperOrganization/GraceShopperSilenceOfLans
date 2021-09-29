@@ -6,7 +6,7 @@ const ADD_NEW_PRODUCT_TO_CART = "ADD_NEW_PRODUCT_TO_CART";
 const SET_CART_FROM_LOCAL_STORAGE = "SET_CART_FROM_LOCAL_STORAGE";
 const EDIT_CART_QUANTITY = "EDIT_CART_QUANTITY";
 const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
-const PLACE_ORDER = "PLACE_ORDER";
+const PLACE_ORDER_UNLOGGED = "PLACE_ORDER_UNLOGGED";
 
 //ACTION CREATORS
 export const _getCartContent = (cart) => ({
@@ -34,8 +34,8 @@ export const _removeProductFromCart = (cart) => ({
   cart,
 });
 
-export const _placeOrder = (cart) => ({
-  type: PLACE_ORDER,
+export const _placeOrderUnlogged = (cart) => ({
+  type: PLACE_ORDER_UNLOGGED,
   cart,
 });
 
@@ -69,6 +69,14 @@ export const removeProductFromCart =
     dispatch(_removeProductFromCart(data));
   };
 
+export const placeOrderUnl = (order, orderForClient) => async (dispatch) => {
+  const { data } = await axios.post(`/api/orders/cart/placeOrderUnlogged`, {
+    order,
+    orderForClient,
+  });
+  dispatch(_placeOrderUnlogged(data));
+};
+
 //INITIAL STATE
 const initialState = [];
 
@@ -84,6 +92,8 @@ export default function cartReducer(state = initialState, action) {
     case EDIT_CART_QUANTITY:
       return action.cart;
     case REMOVE_PRODUCT_FROM_CART:
+      return action.cart;
+    case PLACE_ORDER_UNLOGGED:
       return action.cart;
     default:
       return state;

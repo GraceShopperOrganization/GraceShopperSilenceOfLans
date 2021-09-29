@@ -107,24 +107,61 @@ router.delete("/cart/:userId/:productId", async (req, res, next) => {
     }
 });
 
-router.put("/cart/:userId", async (req, res, next) => {
-    try {
-        const orderIdFromDb = await Order.getOrderIdForCartDisplay(
-            req.params.userId
-        );
 
-        //calculate the total price
-        //update isPaid and totalPrice
+//creates order line item (unlogged user places the order)
+//creates order details line item (unlogged user places the order)
 
-        const cartItems = await Order_detail.findAll({
-            where: { orderId: orderIdFromDb }
-        });
+router.post("/cart/placeOrderUnlogged", async (req, res, next) => {
+  try {
+    const products = await Product.findAll();
+    const orderList = req.body.order;
 
-        res.json(cartItems);
-    } catch (err) {
-        console.log("> POST /api/orders ERR: ", err);
-        next(err);
-    }
+    const order = await Order.create({
+      isPaid: true,
+      orderAddress: "a",
+      totalPrice: 0,
+      userId: null,
+      orderIdForClient: req.body.orderForClient,
+    });
+
+    let total = 0;
+
+    orderList.map(async (orderItem) => {
+      let price = 0;
+      for (let i = 0; i < products.length; i++) {
+        if (orderItem.productId === products[i].id) {
+          price = products[i].price;
+        }
+      }
+      const subtotal = orderItem.quantity * price;
+      total += subtotal;
+
+      await Order_detail.create({
+        quantity: orderItem.quantity,
+        price: subtotal,
+        productId: orderItem.productId,
+        orderId: order.dataValues.id,
+      });
+    });
+
+    await Order.update(
+      { totalPrice: total },
+      {
+        where: {
+          orderIdForClient: req.body.orderForClient,
+        },
+      }
+    );
+
+    res.json([]);
+  } catch (err) {
+    console.log("> POST /api/orders ERR: ", err);
+    next(err);
+  }
+
 });
+
+//updates order line item (logged user places the order)
+//updates order details line item (logged user places the order)
 
 module.exports = router;

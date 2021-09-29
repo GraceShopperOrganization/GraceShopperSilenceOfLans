@@ -14,7 +14,9 @@ class CartItem extends React.Component {
         <div className="cart--product-name">
           {this.props.product.productName}
         </div>
-        <div className="cart--product-price">${this.props.product.price}</div>
+        <div className="cart--product-price">
+          ${this.props.product.price / 100}
+        </div>
         <button
           className="cart--plusminusbtn"
           onClick={async () => {
@@ -69,7 +71,7 @@ class CartItem extends React.Component {
           +
         </button>
         <div className="cart--product-subtotal">
-          ${this.props.product.price * this.props.cartItem.quantity}
+          ${(this.props.product.price / 100) * this.props.cartItem.quantity}
         </div>
         <button
           className="cart--plusminusbtn"

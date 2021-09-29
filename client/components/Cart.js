@@ -6,9 +6,10 @@ import {
   editCartQuantity,
   removeProductFromCart,
   _setCart,
+  placeOrderUnl,
 } from "../store/orders";
 import { fetchProducts } from "../store/products";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Cart extends React.Component {
   async componentDidMount() {
@@ -28,6 +29,16 @@ class Cart extends React.Component {
     if (this.props.auth.id !== prevProps.auth.id) {
       await this.props.getCartContent(this.props.auth.id);
     }
+  }
+
+  async clickHandler(e) {
+    const orderForClient = Math.floor(100000 + Math.random() * 900000);
+    if (!localStorage.getItem("token")) {
+      let order = JSON.parse(localStorage.getItem("products"));
+      await this.props.placeOrderUnlogged(order, orderForClient);
+      localStorage.setItem("products", JSON.stringify([]));
+    }
+    this.props.history.push("/final", orderForClient);
   }
 
   render() {
@@ -61,9 +72,12 @@ class Cart extends React.Component {
           />
         ))}
         <div className="cart--total">Total</div>
-        <Link to={`/final`}>
-          <button className="cart--checkoutbtn">Checkout</button>
-        </Link>
+        <button
+          className="cart--checkoutbtn"
+          onClick={(e) => this.clickHandler(e)}
+        >
+          Checkout
+        </button>
       </div>
     );
   }
@@ -89,6 +103,9 @@ const mapDispatch = (dispatch) => ({
 
   remove: (userId, productId) =>
     dispatch(removeProductFromCart(userId, productId)),
+
+  placeOrderUnlogged: (order, orderForClient) =>
+    dispatch(placeOrderUnl(order, orderForClient)),
 });
 
-export default connect(mapState, mapDispatch)(Cart);
+export default withRouter(connect(mapState, mapDispatch)(Cart));
