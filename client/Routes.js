@@ -54,11 +54,12 @@ class Routes extends Component {
             {/* //add checkout here */}
           </Switch>
         ) : (
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={NewUser} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/final" component={FinalPage} />
+            <Switch>
+                <Route exact path="/" component={Products} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={NewUser} />
+                <Route exact path="/cart" component={Cart} />
+                <Route exact path="/final" component={FinalPage} />
             {/* //add checkout here */}
           </Switch>
         )}
