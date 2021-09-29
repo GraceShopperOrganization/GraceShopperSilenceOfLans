@@ -3,7 +3,7 @@ const {
     models: { Order, Order_detail, Product }
 } = require("../db");
 
-const { isLoggedIn } = require("./gatekeepingMiddleware");
+// const { isLoggedIn } = require("./gateKeepingMiddleware");
 
 // GET /api/orders/cart/:userId      returns cart for specific user
 router.get("/cart/:userId", async (req, res, next) => {
