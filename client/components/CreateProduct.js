@@ -19,7 +19,6 @@ class CreateProduct extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-
     handleSubmit(event) {
         event.preventDefault();
         this.props.createProduct({ ...this.state });
@@ -94,8 +93,8 @@ class CreateProduct extends React.Component {
     }
 }
 
-const mapDispatch = (dispatch) => ({
-    createProduct: (product) => dispatch(createNewProduct(product))
+const mapDispatch = (dispatch, { history }) => ({
+    createProduct: (product) => dispatch(createNewProduct(product, history))
 });
 
 export default connect(null, mapDispatch)(CreateProduct);
