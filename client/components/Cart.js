@@ -6,12 +6,19 @@ import {
   editCartQuantity,
   removeProductFromCart,
   _setCart,
-  placeOrderUnl,
+  placeOrderUnl, placeOrder
 } from "../store/orders";
 import { fetchProducts } from "../store/products";
 import { withRouter } from "react-router-dom";
 
 class Cart extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      total: 0
+    }
+  }
+
   async componentDidMount() {
     await this.props.getProducts();
     if (!localStorage.getItem("token")) {
@@ -20,15 +27,37 @@ class Cart extends React.Component {
         localCart = [];
       }
       this.props.setCartFromLocalStorage(localCart);
-    } else {
+    } else if (this.props.auth.id){
       await this.props.getCartContent(this.props.auth.id);
     }
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    if (this.props.auth.id !== prevProps.auth.id) {
+  async componentDidUpdate(prevProps) {
+    if (this.props.auth.id !== prevProps.auth.id){
       await this.props.getCartContent(this.props.auth.id);
     }
+    if (this.props.cart !== prevProps.cart) {
+      this.calculateOrderTotal()
+    }
+  }
+
+  calculateOrderTotal = () => {
+    const { cart, products } = this.props;
+    const cartItems = cart.map(cartItem => {
+      const product = products.find(
+        (item) => item.id == cartItem.productId
+      )
+      cartItem.price = product.price;
+      return cartItem
+    })
+
+    let subtotal = 0
+    cartItems.forEach(item => {
+      subtotal += item.quantity * item.price
+    });
+    this.setState(
+      { total: subtotal/100 }
+    )
   }
 
   async clickHandler(e) {
@@ -37,6 +66,14 @@ class Cart extends React.Component {
       let order = JSON.parse(localStorage.getItem("products"));
       await this.props.placeOrderUnlogged(order, orderForClient);
       localStorage.setItem("products", JSON.stringify([]));
+    } else {
+      const { auth, checkout, cart } = this.props
+
+      try {
+        await checkout(auth.id, cart, orderForClient)
+      } catch (error){
+        console.log('checkoutHandler error:', error)
+      }
     }
     this.props.history.push("/final", orderForClient);
   }
@@ -71,14 +108,11 @@ class Cart extends React.Component {
             )}
           />
         ))}
-        <div className="cart--total">Total</div>
-        <button
-          className="cart--checkoutbtn"
-          onClick={(e) => this.clickHandler(e)}
-        >
-          Checkout
-        </button>
-      </div>
+
+        <div className="cart--total">Total ${this.state.total}</div>
+          {this.props.cart.length === 0 ? null:
+          <button onClick={(e) => this.clickHandler(e)} className="cart--checkoutbtn">Checkout</button>}
+        </div>
     );
   }
 }
@@ -106,6 +140,9 @@ const mapDispatch = (dispatch) => ({
 
   placeOrderUnlogged: (order, orderForClient) =>
     dispatch(placeOrderUnl(order, orderForClient)),
+
+  checkout: (userId, cart, orderForClient) =>
+    dispatch(placeOrder(userId, cart, orderForClient))
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Cart));
