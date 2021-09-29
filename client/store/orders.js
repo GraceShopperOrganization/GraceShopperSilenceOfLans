@@ -83,9 +83,9 @@ export const placeOrderUnl = (order, orderForClient) => async (dispatch) => {
   dispatch(_placeOrderUnlogged(data));
 };
 
-export const placeOrder = (userId, cart) => async (dispatch) => {
+export const placeOrder = (userId, cart, orderForClient) => async (dispatch) => {
   const { data } = await axios.put(`/api/orders/cart/${userId}`,
-  { cart });
+  { cart, orderForClient });
   dispatch(_placeOrder(data))
 }
 

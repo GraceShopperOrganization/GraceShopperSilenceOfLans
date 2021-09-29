@@ -70,7 +70,7 @@ class Cart extends React.Component {
       const { auth, checkout, cart } = this.props
 
       try {
-        await checkout(auth.id, cart)
+        await checkout(auth.id, cart, orderForClient)
       } catch (error){
         console.log('checkoutHandler error:', error)
       }
@@ -141,8 +141,8 @@ const mapDispatch = (dispatch) => ({
   placeOrderUnlogged: (order, orderForClient) =>
     dispatch(placeOrderUnl(order, orderForClient)),
 
-  checkout: (userId, cart) =>
-    dispatch(placeOrder(userId, cart))
+  checkout: (userId, cart, orderForClient) =>
+    dispatch(placeOrder(userId, cart, orderForClient))
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Cart));

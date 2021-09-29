@@ -184,7 +184,7 @@ router.put("/cart/:userId", async (req, res, next) => {
         })
 
         await Order.update(
-            { totalPrice: totalPrice, isPaid: true },
+            { totalPrice: totalPrice, isPaid: true, orderIdForClient: req.body.orderForClient },
             {
                 where: { userId: req.params.userId, isPaid: false }
             })
