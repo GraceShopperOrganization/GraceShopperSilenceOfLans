@@ -42,15 +42,17 @@ export const _placeOrder = (cart) => ({
 //THUNK CREATORS
 export const getCartContent = (userId) => async (dispatch) => {
     try {
-        const token = window.localStorage.getItem("token");
-        if (token) {
-            const { data } = await axios.get(`/api/orders/cart/${userId}`, {
-                headers: {
-                    authorization: token
-                }
-            });
-            dispatch(_getCartContent(data));
-        }
+        const { data } = await axios.get(`/api/orders/cart/${userId}`);
+        dispatch(_getCartContent(data));
+        // const token = window.localStorage.getItem("token");
+        // if (token) {
+        //     const { data } = await axios.get(`/api/orders/cart/${userId}`, {
+        //         headers: {
+        //             authorization: token
+        //         }
+        //     });
+        //     dispatch(_getCartContent(data));
+        // }
     } catch (err) {
         console.log("GET CARD CONTENT ERR:", err);
     }
@@ -58,25 +60,23 @@ export const getCartContent = (userId) => async (dispatch) => {
 
 export const addNewProductToCart = (userId, productId) => async (dispatch) => {
     try {
-        const token = window.localStorage.getItem("token");
-        console.log("TOKEN ADD_NEW_PRODUCT_TO_CART > ", token);
-        console.log(
-            `ADD_NEW_PRODUCT_TO_CART userId=${userId} productId=${productId}> `
+        const { data } = await axios.post(
+            `/api/orders/cart/${userId}/${productId}`
         );
-
-        if (token) {
-            const { data } = await axios.post(
-                `/api/orders/cart/${userId}/${productId}`,
-                {
-                    headers: {
-                        authorization: token
-                    }
-                }
-            );
-            console.log("DATA ADD_NEW_PRODUCT_TO_CART > ", data);
-
-            dispatch(_addNewProductToCart(data));
-        }
+        dispatch(_addNewProductToCart(data));
+        // const token = window.localStorage.getItem("token");
+        // if (token) {
+        //     const { data } = await axios.post(
+        //         `/api/orders/cart/${userId}/${productId}`,
+        //         {
+        //             headers: {
+        //                 authorization: token
+        //             }
+        //         }
+        //     );
+        //     console.log("DATA ADD_NEW_PRODUCT_TO_CART > ", data);
+        //     dispatch(_addNewProductToCart(data));
+        // }
     } catch (err) {
         console.log("ADD_NEW_PRODUCT_TO_CART ERR:", err);
     }
@@ -85,20 +85,27 @@ export const addNewProductToCart = (userId, productId) => async (dispatch) => {
 export const editCartQuantity =
     (userId, productId, quantity) => async (dispatch) => {
         try {
-            const token = window.localStorage.getItem("token");
-            // console.log("TOKEN ADD_NEW_PRODUCT_TO_CART > ", token);
-            if (token) {
-                const { data } = await axios.put(
-                    `/api/orders/cart/${userId}/${productId}`,
-                    {
-                        quantity,
-                        headers: {
-                            authorization: token
-                        }
-                    }
-                );
-                dispatch(_editCartQuantity(data));
-            }
+            const { data } = await axios.put(
+                `/api/orders/cart/${userId}/${productId}`,
+                {
+                    quantity
+                }
+            );
+            dispatch(_editCartQuantity(data));
+            // const token = window.localStorage.getItem("token");
+            // // console.log("TOKEN ADD_NEW_PRODUCT_TO_CART > ", token);
+            // if (token) {
+            //     const { data } = await axios.put(
+            //         `/api/orders/cart/${userId}/${productId}`,
+            //         {
+            //             quantity,
+            //             headers: {
+            //                 authorization: token
+            //             }
+            //         }
+            //     );
+            //     dispatch(_editCartQuantity(data));
+            // }
         } catch (err) {
             console.log("EditCartQuantity ERR:", err);
         }

@@ -17,7 +17,7 @@ export const createNewUser = (user, history) => {
     return async (dispatch) => {
         const { data } = await axios.post("/api/users", user);
         dispatch(createUser(data));
-        history.push("/products");
+        history.push("/login");
     };
 };
 
