@@ -56,7 +56,7 @@ class Cart extends React.Component {
       subtotal += item.quantity * item.price
     });
     this.setState(
-      { total: subtotal }
+      { total: subtotal/100 }
     )
   }
 
@@ -68,13 +68,9 @@ class Cart extends React.Component {
       localStorage.setItem("products", JSON.stringify([]));
     } else {
       const { auth, checkout, cart } = this.props
-      let orderInfo = {
-        totalPrice: this.state.total,
-        isPaid: true,
-        items: cart
-      }
-      try{
-        await checkout(auth.id, orderInfo)
+
+      try {
+        await checkout(auth.id, cart)
       } catch (error){
         console.log('checkoutHandler error:', error)
       }
@@ -145,8 +141,8 @@ const mapDispatch = (dispatch) => ({
   placeOrderUnlogged: (order, orderForClient) =>
     dispatch(placeOrderUnl(order, orderForClient)),
 
-  checkout: (userId, orderInfo) =>
-    dispatch(placeOrder(userId, orderInfo))
+  checkout: (userId, cart) =>
+    dispatch(placeOrder(userId, cart))
 });
 
 export default withRouter(connect(mapState, mapDispatch)(Cart));

@@ -7,6 +7,7 @@ const SET_CART_FROM_LOCAL_STORAGE = "SET_CART_FROM_LOCAL_STORAGE";
 const EDIT_CART_QUANTITY = "EDIT_CART_QUANTITY";
 const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 const PLACE_ORDER_UNLOGGED = "PLACE_ORDER_UNLOGGED";
+const PLACE_ORDER = "PLACE_ORDER"
 
 //ACTION CREATORS
 export const _getCartContent = (cart) => ({
@@ -81,9 +82,10 @@ export const placeOrderUnl = (order, orderForClient) => async (dispatch) => {
   });
   dispatch(_placeOrderUnlogged(data));
 };
-export const placeOrder = (userId, orderInfo) => async (dispatch) => {
+
+export const placeOrder = (userId, cart) => async (dispatch) => {
   const { data } = await axios.put(`/api/orders/cart/${userId}`,
-  { orderInfo });
+  { cart });
   dispatch(_placeOrder(data))
 }
 

@@ -234,7 +234,7 @@ const mapState = (state) => {
     };
 };
 
-const mapDsipatch = (dispatch, { history }) => {
+const mapDispatch = (dispatch, { history }) => {
     return {
         fetchProducts: () => dispatch(fetchProducts()),
         deleteProduct: (productId) =>
@@ -247,4 +247,4 @@ const mapDsipatch = (dispatch, { history }) => {
     };
 };
 
-export default connect(mapState, mapDsipatch)(Products);
+export default connect(mapState, mapDispatch)(Products);
